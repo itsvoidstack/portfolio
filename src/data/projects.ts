@@ -16,30 +16,9 @@ export interface Project {
   addressBarUrl?: string;
 }
 
-export const chroniqxProject: Project = {
-  id: "chroniqx",
-  number: "01",
-  title: "CHRONIQX",
-  subtitle: "MEDIA TRACKING PLATFORM",
-  description:
-    "Full-stack media tracking platform with real-time activity, automated media tracking, and personalized libraries.",
-  bullets: [
-    "Built and deployed a full-stack media tracking platform with real-time activity and personalized libraries.",
-    "Integrated external APIs and automated media tracking to create a seamless user experience.",
-  ],
-  role: "Developer",
-  category: "Media Tracking Platform",
-  stack: ["Next.js", "React", "TypeScript", "APIs", "Vercel"],
-  featured: true,
-  demoUrl: "https://chroniqx.vercel.app",
-  githubUrl: "https://github.com/itsvoidstack/chroniq",
-  image: "/chroniqx.png",
-  addressBarUrl: "https://chroniqx.vercel.app",
-};
-
 export const tesseraProject: Project = {
   id: "tessera",
-  number: "02",
+  number: "01",
   title: "TESSERA",
   subtitle: "AI REPOSITORY INTELLIGENCE PLATFORM",
   description:
@@ -62,14 +41,35 @@ export const tesseraProject: Project = {
     "Gemini",
   ],
   featured: true,
-  highlightBadge: "Built during Impact Forge: Summer 2026 Hackathon.",
+  highlightBadge: "Built during Impact Forge: Summer 2026 Hackathon",
   demoUrl: "https://tesseraa-app.netlify.app",
   githubUrl: "https://github.com/itsvoidstack/tessera",
   image: "/tessera.png",
   addressBarUrl: "https://tesseraa-app.netlify.app",
 };
 
-export const featuredProjects: Project[] = [chroniqxProject, tesseraProject];
+export const chroniqxProject: Project = {
+  id: "chroniqx",
+  number: "02",
+  title: "CHRONIQX",
+  subtitle: "MEDIA TRACKING PLATFORM",
+  description:
+    "Full-stack media tracking platform with real-time activity, automated media tracking, and personalized libraries.",
+  bullets: [
+    "Built and deployed a full-stack media tracking platform with real-time activity and personalized libraries.",
+    "Integrated external APIs and automated media tracking to create a seamless user experience.",
+  ],
+  role: "Developer",
+  category: "Media Tracking Platform",
+  stack: ["Next.js", "React", "TypeScript", "APIs", "Vercel"],
+  featured: true,
+  demoUrl: "https://chroniqx.vercel.app",
+  githubUrl: "https://github.com/itsvoidstack/chroniq",
+  image: "/chroniqx.png",
+  addressBarUrl: "https://chroniqx.vercel.app",
+};
+
+export const featuredProjects: Project[] = [tesseraProject, chroniqxProject];
 
 export const repositoryProjects: Project[] = [
   {

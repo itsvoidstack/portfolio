@@ -2,8 +2,8 @@ import Navbar from "@/components/layout/Navbar";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
 import WorkSection from "@/components/sections/WorkSection";
-import SkillsSection from "@/components/sections/SkillsSection";
 import JourneySection from "@/components/sections/JourneySection";
+import SkillsSection from "@/components/sections/SkillsSection";
 import HobbiesSection from "@/components/sections/HobbiesSection";
 import ContactSection from "@/components/sections/ContactSection";
 import Footer from "@/components/layout/Footer";
@@ -16,29 +16,29 @@ export default function Home() {
 
       {/* Main page content sections */}
       <main className="flex-1">
-        {/* 01 — HERO */}
+        {/* HERO */}
         <HeroSection />
 
-        {/* 02 — ABOUT */}
+        {/* 01 — ABOUT */}
         <AboutSection />
 
-        {/* 03 — WORK */}
+        {/* 02 — WORK */}
         <WorkSection />
+
+        {/* 03 — MY JOURNEY */}
+        <JourneySection />
 
         {/* 04 — SKILLS / ARSENAL */}
         <SkillsSection />
 
-        {/* 05 — JOURNEY */}
-        <JourneySection />
-
-        {/* 06 — HOBBIES / BEYOND THE CODE */}
+        {/* 05 — HOBBIES / BEYOND THE CODE */}
         <HobbiesSection />
 
-        {/* 07 — CONTACT */}
+        {/* 06 — CONTACT */}
         <ContactSection />
       </main>
 
-      {/* 08 — FOOTER */}
+      {/* FOOTER */}
       <Footer />
     </div>
   );

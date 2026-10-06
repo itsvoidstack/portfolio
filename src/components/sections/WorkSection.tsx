@@ -5,7 +5,7 @@ import RepositoryRow from "@/components/ui/RepositoryRow";
 import { featuredProjects, repositoryProjects } from "@/data/projects";
 
 export default function WorkSection() {
-  const [chroniqx, tessera] = featuredProjects;
+  const [tessera, chroniqx] = featuredProjects;
 
   return (
     <section id="work" className="py-24 px-6 md:px-12 border-b border-[var(--border)] bg-[var(--background)]">
@@ -16,7 +16,7 @@ export default function WorkSection() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[var(--border)]">
             <div>
               <span className="font-mono text-xs text-[var(--accent)] tracking-widest uppercase block mb-2 font-semibold">
-                WORK / 03
+                WORK / 02
               </span>
               <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-[var(--foreground)] uppercase tracking-tight">
                 SELECTED WORK
@@ -31,19 +31,19 @@ export default function WorkSection() {
 
         {/* Featured Projects Presentations */}
         <div className="space-y-16 md:space-y-24 mb-24 md:mb-32">
-          {/* FEATURED PROJECT 01 — CHRONIQX (Screenshot LEFT, Info RIGHT) */}
-          {chroniqx && (
+          {/* FEATURED PROJECT 01 — TESSERA (Screenshot LEFT, Info RIGHT) */}
+          {tessera && (
             <FeaturedProject
-              project={chroniqx}
+              project={tessera}
               imagePosition="left"
               priority={true}
             />
           )}
 
-          {/* FEATURED PROJECT 02 — TESSERA (Info LEFT, Screenshot RIGHT) */}
-          {tessera && (
+          {/* FEATURED PROJECT 02 — CHRONIQX (Info LEFT, Screenshot RIGHT) */}
+          {chroniqx && (
             <FeaturedProject
-              project={tessera}
+              project={chroniqx}
               imagePosition="right"
               priority={false}
             />
