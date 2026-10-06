@@ -34,12 +34,21 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-        {/* Left: Identity */}
+        {/* Left: Identity & SVG Logo */}
         <Link
           href="#"
-          className="font-display font-bold text-sm tracking-wider uppercase text-[var(--foreground)] hover:text-[var(--accent)] transition-colors"
+          className="flex items-center gap-3 font-display font-bold text-sm tracking-wider uppercase text-[var(--foreground)] hover:text-[var(--accent)] transition-colors group"
         >
-          SHIVAM SHAH
+          <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 transition-transform duration-300 group-hover:scale-105 shadow-xs">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+              <circle cx="50" cy="50" r="42" fill="#121212" />
+              <path d="M36 35 L23 50 L36 65" stroke="#D4FF00" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M64 35 L77 50 L64 65" stroke="#D4FF00" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+              <line x1="56" y1="32" x2="44" y2="68" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" />
+              <circle cx="50" cy="50" r="3" fill="#D4FF00" />
+            </svg>
+          </div>
+          <span>SHIVAM SHAH</span>
         </Link>
 
         {/* Right: Desktop Navigation Links */}

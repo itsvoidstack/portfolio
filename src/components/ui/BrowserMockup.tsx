@@ -64,7 +64,7 @@ export default function BrowserMockup({
       </div>
 
       {/* Browser Window Body / Screenshot Container */}
-      <div className="relative w-full aspect-[16/10] bg-[#0F172A] overflow-hidden flex items-start justify-center">
+      <div className="relative w-full aspect-[1024/521] bg-[#0F172A] overflow-hidden flex items-start justify-center">
         <Image
           src={imageSrc}
           alt={altText}

@@ -31,6 +31,11 @@ export const metadata: Metadata = {
   title: "Shivam Shah — Creative Developer & AI Enthusiast",
   description: "Computer Science student interested in artificial intelligence, full-stack development, and building digital products with real purpose.",
   keywords: ["Shivam Shah", "Creative Developer", "AI Enthusiast", "Full Stack Developer", "TypeScript", "Next.js", "Tessera"],
+  icons: {
+    icon: "/logo.svg",
+    shortcut: "/logo.svg",
+    apple: "/logo.svg",
+  },
 };
 
 export default function RootLayout({
