@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Sora, Inter, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
+import { Sora } from "next/font/google";
+import { Inter } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/layout/CustomCursor";
 import JsonLd from "@/components/seo/JsonLd";
