@@ -9,7 +9,7 @@
 - **Email:** shivamshah9811@gmail.com
 - **GitHub:** https://github.com/itsvoidstack
 - **LinkedIn:** https://linkedin.com/in/shivam-shah-ab0a51411
-- **Website:** https://shivam-shah.com.np
+- **Website:** https://www.shivam-shah.com.np
 
 ## Core Competencies & Stack
 - **Frontend:** Next.js, React, TypeScript, HTML, CSS, Tailwind CSS
