@@ -1,0 +1,16 @@
+{
+  "name": "Shivam Shah — Creative Developer & AI Enthusiast",
+  "short_name": "Shivam Shah",
+  "description": "Computer Science student interested in artificial intelligence, full-stack development, and building digital products with real purpose.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+# Shivam Shah — Complete Machine-Readable Profile & Portfolio Documentation
+
+## Overview
+- **Name:** Shivam Shah
+- **Alias / Handle:** itsvoidstack
+- **Profession / Focus:** Computer Science Student, Full-Stack Developer, AI & Web Enthusiast
+- **Location / Email:** shivamshah9811@gmail.com
+- **GitHub:** https://github.com/itsvoidstack
+- **LinkedIn:** https://linkedin.com/in/shivam-shah-ab0a51411
+- **Personal Website:** https://shivam-shah.com.np
+
+---
+
+## Detailed Biography & Ethos
+Shivam Shah is a Computer Science student dedicated to creating practical digital products, exploring artificial intelligence, and building scalable full-stack applications. 
+
+### Core Focus Areas:
+1. **Building:** Practical AI platforms, developer tools, and responsive web applications.
+2. **Learning:** Agentic AI workflows, Retrieval-Augmented Generation (RAG) architectures, and modern web frameworks.
+3. **Exploring:** Full-stack systems design, API design, and user-centered digital products.
+
+Ethos: *"Always learning. Always building. Always curious."*
+
+---
+
+## Comprehensive Project Portfolio
+
+### 1. Tessera — AI Repository Intelligence Platform
+- **Category:** AI / Full Stack
+- **Role:** Full-Stack Developer
+- **Badge:** Built during Impact Forge: Summer 2026 Hackathon
+- **Summary:** An AI-assisted GitHub repository analyzer that helps developers understand complex or unfamiliar codebases by offering evidence-grounded insights, interactive architecture visualization, code exploration, and quality auditing.
+- **Key Features:**
+  - Codebase structure analysis
+  - Evidence-grounded architecture & security auditing powered by Gemini AI
+  - Interactive Code Explorer
+- **Tech Stack:** Next.js, React, TypeScript, Tailwind CSS, FastAPI, Python, Supabase, Gemini AI
+- **Repository:** https://github.com/itsvoidstack/tessera
+- **Live Application:** https://tesseraa-app.netlify.app
+
+### 2. Chroniqx — Media Tracking Platform
+- **Category:** Media Tracking / Full Stack
+- **Role:** Full-Stack Developer
+- **Summary:** Full-stack media tracking application featuring real-time user activity, automated tracking, and personalized libraries.
+- **Tech Stack:** Next.js, React, TypeScript, External APIs, Vercel
+- **Repository:** https://github.com/itsvoidstack/chroniq
+- **Live Application:** https://chroniqx.vercel.app
+
+### 3. ResQ-Nepal — SOS & Emergency Platform
+- **Category:** Civic Tech / Web
+- **Role:** Developer
+- **Summary:** A civic emergency platform connecting individuals with emergency services, community assistance, and critical response resources.
+- **Tech Stack:** Next.js, React, TypeScript, APIs, Vercel
+- **Repository:** https://github.com/itsvoidstack/ResQ-Nepal
+
+### 4. connect-grow — Multi-Role Collaboration Platform
+- **Category:** Hackathon MVP / Web
+- **Role:** Developer
+- **Summary:** Multi-role collaboration concept enabling seamless interaction between businesses, workers, mentors, and students.
+- **Tech Stack:** HTML, CSS, JavaScript, React, Tailwind CSS
+- **Repository:** https://github.com/itsvoidstack/connect-grow
+
+---
+
+## Skills & Technical Capabilities
+
+### Languages & Core Web:
+- TypeScript, JavaScript (ES6+), Python, HTML5, CSS3
+
+### Frameworks & Libraries:
+- Next.js (App Router), React, FastAPI, Tailwind CSS, Framer Motion
+
+### Databases & Backend:
+- Supabase, PostgreSQL, REST APIs
+
+### AI Tools & Integration:
+- Gemini API, Prompt Engineering, RAG Architectures, AI Agents
+
+### Tooling & Deployment:
+- Git, GitHub, Vercel, Netlify, VS Code
+
+---
+
+## Hackathon & Competitive History
+
+- **Impact Forge: Summer 2026 Hackathon**
+  - Project: Tessera
+  - Key Learning: Rapid prototyping, AI integration, evidence-grounded analysis.
+
+- **Hackathon Competitions Overview**
+  - Total Competitions: 3 Hackathons
+  - Achievement: Podium Finish
+  - Insights: Developed rapid MVP shipping skills, team role optimization, and time-constrained system design.
+
+---
+
+## Contact & Social Links
+- **Primary Email:** shivamshah9811@gmail.com
+- **GitHub:** https://github.com/itsvoidstack
+- **LinkedIn:** https://linkedin.com/in/shivam-shah-ab0a51411

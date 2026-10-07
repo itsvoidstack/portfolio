@@ -1,0 +1,55 @@
+# Shivam Shah — Personal Portfolio & Technical Summary
+
+> Computer Science student developing an interest in artificial intelligence, full-stack development, and creating impactful digital products.
+
+## Identity & Contact
+- **Name:** Shivam Shah
+- **Handle:** @itsvoidstack
+- **Role:** Student Developer, Full-Stack & AI Enthusiast
+- **Email:** shivamshah9811@gmail.com
+- **GitHub:** https://github.com/itsvoidstack
+- **LinkedIn:** https://linkedin.com/in/shivam-shah-ab0a51411
+- **Website:** https://shivam-shah.com.np
+
+## Core Competencies & Stack
+- **Frontend:** Next.js, React, TypeScript, HTML, CSS, Tailwind CSS
+- **Backend & APIs:** Python, FastAPI, Node.js, REST APIs
+- **Database & Cloud:** Supabase, PostgreSQL, Vercel, Netlify
+- **AI & ML Integration:** Gemini API, RAG Architecture, AI Repository Analysis
+- **Workflow:** Git, Rapid Prototyping, Hackathon Development
+
+## Featured Projects
+1. **Tessera (AI Repository Intelligence Platform)**
+   - Description: AI-assisted GitHub repository analyzer helping developers understand unfamiliar codebases through evidence-grounded AI insights, architecture visualization, and code auditing.
+   - Stack: Next.js, React, TypeScript, FastAPI, Python, Supabase, Gemini
+   - GitHub: https://github.com/itsvoidstack/tessera
+   - Live Demo: https://tesseraa-app.netlify.app
+
+2. **Chroniqx (Media Tracking Platform)**
+   - Description: Full-stack media tracking platform with real-time activity, automated media tracking, and personalized libraries.
+   - Stack: Next.js, React, TypeScript, APIs, Vercel
+   - GitHub: https://github.com/itsvoidstack/chroniq
+   - Live Demo: https://chroniqx.vercel.app
+
+3. **ResQ-Nepal (SOS & Emergency Platform)**
+   - Description: Civic emergency platform connecting users with emergency services, community support, and essential resources.
+   - Stack: Next.js, React, TypeScript, APIs, Vercel
+   - GitHub: https://github.com/itsvoidstack/ResQ-Nepal
+
+4. **connect-grow (Multi-Role Collaboration Platform)**
+   - Description: Multi-role platform concept connecting businesses, workers, mentors, and students through role-based experiences.
+   - Stack: HTML, CSS, JavaScript, React, Tailwind CSS
+   - GitHub: https://github.com/itsvoidstack/connect-grow
+
+## Hackathon & Competitive Experience
+- **Impact Forge: Summer 2026 Hackathon:** Built Tessera; focused on evidence-grounded AI code insights and architecture visualizer.
+- **Hackathon Competitions:** Participated in 3 hackathons, earning a podium finish and honing rapid MVP execution under pressure.
+
+## Portfolio Structure
+- `/` (Home / Hero)
+- `#about` (Background, ethos, current focus)
+- `#work` (Featured and repository projects)
+- `#journey` (Hackathon timeline and competitive log)
+- `#skills` (Technical skills breakdown)
+- `#hobbies` (Personal interests beyond code)
+- `#contact` (Direct communication channels)
