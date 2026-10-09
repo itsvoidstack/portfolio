@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk, Sora, JetBrains_Mono, Caveat } from "next/font/go
 
 import "./globals.css";
 import CustomCursor from "@/components/layout/CustomCursor";
+import ScrollProgress from "@/components/layout/ScrollProgress";
 import JsonLd from "@/components/seo/JsonLd";
 import { siteConfig } from "@/config/site";
 
@@ -121,6 +122,7 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body className="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans selection:bg-[var(--accent)] selection:text-white relative overflow-x-hidden">
+        <ScrollProgress />
         <CustomCursor />
         {children}
       </body>

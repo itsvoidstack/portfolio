@@ -1,9 +1,10 @@
 "use client";
 
+import { useRef } from "react";
 import { Project } from "@/data/projects";
 import BrowserMockup from "@/components/ui/BrowserMockup";
 import { ArrowUpRight, CheckCircle2, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform, Variants } from "framer-motion";
 
 interface FeaturedProjectProps {
   project: Project;
@@ -17,23 +18,60 @@ export default function FeaturedProject({
   priority = false,
 }: FeaturedProjectProps) {
   const isImageLeft = imagePosition === "left";
+  const shouldReduceMotion = useReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Parallax displacement linked to viewport scroll
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Image moves at slightly different velocity than text
+  const imageY = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const textY = useTransform(scrollYProgress, [0, 1], [-15, 15]);
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.1,
+        delayChildren: shouldReduceMotion ? 0 : 0.05,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0.2 : 0.7,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+  };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="w-full py-8 md:py-12 border-b border-[var(--border)] last:border-b-0"
+    <div
+      ref={containerRef}
+      className="w-full py-8 md:py-16 border-b border-[var(--border)] last:border-b-0"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        
-        {/* Visual / Screenshot Area */}
-        <div
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
+      >
+        {/* Visual / Screenshot Area with Parallax */}
+        <motion.div
+          style={{ y: shouldReduceMotion ? 0 : imageY }}
+          variants={itemVariants}
           className={`lg:col-span-7 w-full ${
-            isImageLeft
-              ? "order-1 lg:order-1"
-              : "order-1 lg:order-2"
+            isImageLeft ? "order-1 lg:order-1" : "order-1 lg:order-2"
           }`}
         >
           {project.image ? (
@@ -49,14 +87,14 @@ export default function FeaturedProject({
               [PREVIEW UNAVAILABLE]
             </div>
           )}
-        </div>
+        </motion.div>
 
-        {/* Project Information Beside / Underneath Screenshot */}
-        <div
+        {/* Project Information */}
+        <motion.div
+          style={{ y: shouldReduceMotion ? 0 : textY }}
+          variants={itemVariants}
           className={`lg:col-span-5 flex flex-col justify-between ${
-            isImageLeft
-              ? "order-2 lg:order-2"
-              : "order-2 lg:order-1"
+            isImageLeft ? "order-2 lg:order-2" : "order-2 lg:order-1"
           }`}
         >
           <div>
@@ -84,7 +122,7 @@ export default function FeaturedProject({
               </p>
             )}
 
-            {/* Real Project Description */}
+            {/* Project Description */}
             <p className="font-sans text-sm md:text-base text-[var(--foreground)]/80 leading-relaxed mb-6">
               {project.description}
             </p>
@@ -101,7 +139,7 @@ export default function FeaturedProject({
               </ul>
             )}
 
-            {/* Highlight Badge (Hackathon badge) if present */}
+            {/* Highlight Badge */}
             {project.highlightBadge && (
               <div className="mb-6 inline-flex items-center gap-2 px-3 py-1.5 bg-[var(--accent)]/10 border border-[var(--accent)]/20 font-mono text-xs text-[var(--accent)] font-medium rounded-xs">
                 <Sparkles size={13} className="shrink-0" />
@@ -109,7 +147,7 @@ export default function FeaturedProject({
               </div>
             )}
 
-            {/* Metadata Grid: Type & Tech Stack */}
+            {/* Metadata Grid */}
             <div className="border-t border-b border-[var(--border-subtle)] py-4 mb-6 space-y-3 font-mono text-xs">
               <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
                 <span className="text-[var(--muted)] w-24 shrink-0 uppercase tracking-wider text-[11px]">
@@ -141,7 +179,9 @@ export default function FeaturedProject({
           {/* Action Links */}
           <div className="flex flex-wrap items-center gap-4 pt-2">
             {project.demoUrl && (
-              <a
+              <motion.a
+                whileHover={shouldReduceMotion ? {} : { scale: 1.03 }}
+                whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
                 href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -152,11 +192,13 @@ export default function FeaturedProject({
                   size={15}
                   className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 />
-              </a>
+              </motion.a>
             )}
 
             {project.githubUrl && (
-              <a
+              <motion.a
+                whileHover={shouldReduceMotion ? {} : { scale: 1.03 }}
+                whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -167,12 +209,11 @@ export default function FeaturedProject({
                   size={15}
                   className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 />
-              </a>
+              </motion.a>
             )}
           </div>
-        </div>
-
-      </div>
-    </motion.div>
+        </motion.div>
+      </motion.div>
+    </div>
   );
 }

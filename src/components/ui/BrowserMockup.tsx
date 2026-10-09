@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Lock, Globe, ExternalLink } from "lucide-react";
 
 interface BrowserMockupProps {
@@ -19,14 +19,24 @@ export default function BrowserMockup({
   liveUrl,
   priority = false,
 }: BrowserMockupProps) {
-  // Clean URL for display
+  const shouldReduceMotion = useReducedMotion();
   const displayUrl = addressBarUrl.replace(/^https?:\/\//, "");
 
   return (
     <motion.div
-      whileHover={{ scale: 1.015, y: -4 }}
+      whileHover={
+        shouldReduceMotion
+          ? {}
+          : {
+              scale: 1.018,
+              y: -6,
+              rotateX: 2,
+              rotateY: -2,
+            }
+      }
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative w-full rounded-lg overflow-hidden border border-[var(--border)] bg-[var(--surface-alt)] shadow-lg hover:shadow-xl hover:border-[var(--accent)]/40 transition-all duration-500"
+      style={{ transformStyle: "preserve-3d", perspective: 1000 }}
+      className="group relative w-full rounded-lg overflow-hidden border border-[var(--border)] bg-[var(--surface-alt)] shadow-lg hover:shadow-2xl hover:border-[var(--accent)]/60 transition-all duration-500"
     >
       {/* Browser Chrome Header */}
       <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-[var(--border)] bg-[#F0EFEA] text-[var(--muted)] font-mono text-xs select-none">
@@ -45,7 +55,7 @@ export default function BrowserMockup({
           </span>
         </div>
 
-        {/* Action Icon / Placeholder */}
+        {/* Action Icon */}
         <div className="flex items-center gap-2 shrink-0 text-[var(--muted)]">
           {liveUrl ? (
             <a
@@ -71,10 +81,10 @@ export default function BrowserMockup({
           fill
           priority={priority}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 65vw, 800px"
-          className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+          className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
         />
-        {/* Subtle overlay for depth */}
-        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+        {/* Subtle gradient overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       </div>
     </motion.div>
   );

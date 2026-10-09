@@ -1,86 +1,66 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { Sparkles, Plus } from "lucide-react";
-import { motion, useReducedMotion, Variants } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform, Variants } from "framer-motion";
 
 const TAGLINE_TEXT = "STUDENT DEVELOPER & UI/UX & AI ENTHUSIAST";
 
 export default function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
-  const [typedText, setTypedText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [loopIndex, setLoopIndex] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-  // Typewriter effect loop for the tagline
-  useEffect(() => {
-    if (shouldReduceMotion) {
-      setTypedText(TAGLINE_TEXT);
-      return;
-    }
+  // Scroll Parallax linked transforms
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
 
-    const typingSpeed = isDeleting ? 30 : 60;
-    const pauseTime = 2500;
-
-    const handleTyping = () => {
-      if (!isDeleting) {
-        setTypedText(TAGLINE_TEXT.slice(0, typedText.length + 1));
-        if (typedText === TAGLINE_TEXT) {
-          setTimeout(() => setIsDeleting(true), pauseTime);
-        }
-      } else {
-        setTypedText(TAGLINE_TEXT.slice(0, typedText.length - 1));
-        if (typedText === "") {
-          setIsDeleting(false);
-          setLoopIndex((prev) => prev + 1);
-        }
-      }
-    };
-
-    const timer = setTimeout(handleTyping, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [typedText, isDeleting, shouldReduceMotion, loopIndex]);
+  const portraitY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const starRotate = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const textBgY = useTransform(scrollYProgress, [0, 1], [0, -40]);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.08,
+        staggerChildren: shouldReduceMotion ? 0 : 0.09,
         delayChildren: shouldReduceMotion ? 0 : 0.05,
       },
     },
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: shouldReduceMotion ? 0.2 : 0.6,
-        ease: "easeOut",
+        duration: shouldReduceMotion ? 0.2 : 0.7,
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   };
 
   const portraitVariants: Variants = {
-    hidden: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.96 },
+    hidden: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.94, y: shouldReduceMotion ? 0 : 40 },
     visible: {
       opacity: 1,
       scale: 1,
+      y: 0,
       transition: {
-        duration: shouldReduceMotion ? 0.2 : 0.8,
-        ease: "easeOut",
-        delay: shouldReduceMotion ? 0 : 0.2,
+        duration: shouldReduceMotion ? 0.2 : 0.9,
+        ease: [0.16, 1, 0.3, 1],
+        delay: shouldReduceMotion ? 0 : 0.15,
       },
     },
   };
 
   return (
-    <section className="relative pt-24 md:pt-32 border-b border-[var(--border)] overflow-hidden bg-[var(--background)]">
+    <section ref={sectionRef} className="relative pt-24 md:pt-32 border-b border-[var(--border)] overflow-hidden bg-[var(--background)]">
       {/* Background Subtle Grid Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none" />
 
@@ -97,33 +77,15 @@ export default function HeroSection() {
               className="lg:col-span-5 pb-10 lg:pb-16 flex flex-col justify-center relative z-20"
             >
               
-              {/* Supporting Tagline with Continuous Typing Animation */}
+              {/* Supporting Tagline */}
               <motion.div variants={itemVariants} className="font-mono text-[11px] sm:text-xs text-[var(--accent)] tracking-widest uppercase mb-4 flex items-center gap-2 font-semibold min-h-[20px]">
                 <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent)] animate-pulse shrink-0" />
-                <span>
-                  — {typedText}
-                  {!shouldReduceMotion && (
-                    <span className="inline-block w-1.5 h-3.5 bg-[var(--accent)] ml-1 animate-pulse align-middle" />
-                  )}
-                </span>
+                <span>— {TAGLINE_TEXT}</span>
               </motion.div>
 
-              {/* Huge Expressive Display Identity with Continuous Gentle Floating Motion */}
+              {/* Huge Expressive Display Identity */}
               <motion.h1
                 variants={itemVariants}
-                animate={
-                  shouldReduceMotion
-                    ? {}
-                    : {
-                        y: [0, -6, 0],
-                        transition: {
-                          duration: 4,
-                          repeat: Infinity,
-                          repeatType: "reverse",
-                          ease: "easeInOut",
-                        },
-                      }
-                }
                 className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-[var(--foreground)] leading-[0.88] uppercase mb-6"
               >
                 SHIVAM <br />
@@ -167,11 +129,12 @@ export default function HeroSection() {
             {/* Middle Layer: "BUILD YOUR IMAGINATION" */}
             <div className="lg:col-span-7 relative h-full flex items-end justify-between z-0">
               
-              {/* Text Layer */}
+              {/* Text Layer with Scroll Parallax */}
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
+                style={{ y: shouldReduceMotion ? 0 : textBgY }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="absolute top-12 lg:top-16 left-0 z-0 pointer-events-none select-none max-w-lg"
               >
                 {/* Grey Display Heading */}
@@ -195,21 +158,25 @@ export default function HeroSection() {
                 CREATIVE <br /> DEVELOPER
               </div>
 
-              {/* Green/Yellow Swoosh Star SVG */}
-              <div className="absolute top-10 right-28 z-20 text-lime-500 animate-spin-slow pointer-events-none hidden sm:block">
-                <Sparkles size={40} strokeWidth={1.5} />
-              </div>
+              {/* Green Swoosh Star SVG with Rotation Scroll Transform */}
+              <motion.div
+                style={{ rotate: shouldReduceMotion ? 0 : starRotate }}
+                className="absolute top-10 right-28 z-20 text-lime-500 pointer-events-none hidden sm:block"
+              >
+                <Sparkles size={44} strokeWidth={1.5} />
+              </motion.div>
 
               {/* Crosshair Decorative Icon */}
               <div className="absolute top-2 left-1/3 text-[var(--muted)] z-20 pointer-events-none hidden sm:block">
                 <Plus size={18} />
               </div>
 
-              {/* Right Side: Portrait Image Layer with Entrance Animation */}
+              {/* Right Side: Portrait Image Layer with Scroll Parallax Transformation */}
               <motion.div
                 variants={portraitVariants}
                 initial="hidden"
                 animate="visible"
+                style={{ y: shouldReduceMotion ? 0 : portraitY }}
                 className="relative z-10 ml-auto w-full max-w-[480px] lg:max-w-[560px] h-[440px] sm:h-[540px] lg:h-[620px] flex items-end justify-end pointer-events-none"
               >
                 <Image
@@ -228,9 +195,9 @@ export default function HeroSection() {
 
           {/* Hero Bottom Metadata Status Bar */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
             className="py-4 border-t border-[var(--border)] flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[var(--muted)] relative z-20 bg-[var(--background)]"
           >
             <div className="flex items-center gap-2">
