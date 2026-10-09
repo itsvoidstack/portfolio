@@ -87,7 +87,7 @@ export default function KineticIntro({
     };
   }, []);
 
-  // 3 Target phrases to type and erase in-place with exact same transition logic
+  // 3 Target phrases to type and erase in-place seamlessly
   const frameTargets: Record<number, string> = {
     1: "HELLO!",
     2: `I'M ${siteConfig.name.toUpperCase()}`,
@@ -98,7 +98,7 @@ export default function KineticIntro({
     setIsExiting(true);
   };
 
-  // Uniform, smooth typewriter & backspace erasing loop for ALL 3 frames
+  // Pure single-sequence typewriter & backspace loop (NO double container animation)
   useEffect(() => {
     if (isExiting || isPaused) return;
 
@@ -106,7 +106,7 @@ export default function KineticIntro({
     const currentTarget = frameTargets[frame];
 
     if (!isDeleting && displayText !== currentTarget) {
-      // Smooth character typing
+      // Type in character by character
       timer = setTimeout(() => {
         setDisplayText(currentTarget.substring(0, displayText.length + 1));
       }, 70);
@@ -123,12 +123,12 @@ export default function KineticIntro({
         }, 2000);
       }
     } else if (isDeleting && displayText !== "") {
-      // Smooth character backspacing
+      // Backspace character by character in-place
       timer = setTimeout(() => {
         setDisplayText(currentTarget.substring(0, displayText.length - 1));
       }, 35);
     } else if (isDeleting && displayText === "") {
-      // Advance to next frame cleanly
+      // Advance to next phrase cleanly without container unmount
       setIsDeleting(false);
       setFrame((prev) => prev + 1);
     }
@@ -187,7 +187,7 @@ export default function KineticIntro({
             </svg>
           </div>
 
-          {/* 2. TOP HUD METADATA (PROPER TOP MARGIN & WHITESPACE) */}
+          {/* 2. TOP HUD METADATA */}
           <div className="absolute top-6 left-6 text-xs font-[family-name:var(--font-jetbrains-mono)] text-black/60 flex items-center gap-2 z-20">
             <span className="text-[#84cc16] font-bold">✦</span>
             <span>SHIVAM_SHAH // PORTFOLIO 2026</span>
@@ -209,7 +209,7 @@ export default function KineticIntro({
             CERTAIN UNCERTAINTIES [VOL. 2] // KINETIC SEQUENCE_
           </div>
 
-          {/* 3. PROPERLY BALANCED BACKDROP SVGS WITH NO CLUTTER */}
+          {/* 3. PROPERLY BALANCED BACKDROP SVGS */}
           <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
             {ATTACHED_SVGS.map((item) => (
               <motion.div
@@ -238,18 +238,11 @@ export default function KineticIntro({
             ))}
           </div>
 
-          {/* 4. UNIFORM, SMOOTH TYPEWRITER STAGE (SAME TRANSITION FOR ALL FRAMES) */}
+          {/* 4. SINGLE PERMANENT TYPEWRITER STAGE (PURE TYPEWRITER — NO DOUBLE CONTAINER ANIMATIONS) */}
           <div className="relative z-10 text-center px-4 flex flex-col items-center justify-center min-h-[240px] w-full max-w-4xl">
             {/* FRAME 1: HELLO! */}
             {frame === 1 && (
-              <motion.div
-                key="stage-1"
-                initial={{ opacity: 0, filter: "blur(4px)" }}
-                animate={{ opacity: 1, filter: "blur(0px)" }}
-                exit={{ opacity: 0, filter: "blur(4px)" }}
-                transition={{ duration: 0.3 }}
-                className="flex flex-col items-center"
-              >
+              <div className="flex flex-col items-center">
                 <h1 className="text-7xl sm:text-9xl md:text-[10rem] font-black tracking-tight leading-none font-[family-name:var(--font-space-grotesk)] flex items-baseline">
                   <span>{displayText.replace("!", "")}</span>
                   {displayText.includes("!") && (
@@ -260,19 +253,12 @@ export default function KineticIntro({
                 <span className="mt-4 font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-slate-500">
                   // 240px bounds
                 </span>
-              </motion.div>
+              </div>
             )}
 
             {/* FRAME 2: I'M SHIVAM SHAH */}
             {frame === 2 && (
-              <motion.div
-                key="stage-2"
-                initial={{ opacity: 0, filter: "blur(4px)" }}
-                animate={{ opacity: 1, filter: "blur(0px)" }}
-                exit={{ opacity: 0, filter: "blur(4px)" }}
-                transition={{ duration: 0.3 }}
-                className="flex flex-col items-center"
-              >
+              <div className="flex flex-col items-center">
                 {displayText.startsWith("I'M") && (
                   <span className="font-[family-name:var(--font-jetbrains-mono)] text-sm sm:text-xl text-slate-500 uppercase tracking-widest mb-2 font-semibold">
                     I&apos;M
@@ -292,19 +278,12 @@ export default function KineticIntro({
                 <span className="mt-4 font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-slate-500">
                   // 240px bounds
                 </span>
-              </motion.div>
+              </div>
             )}
 
             {/* FRAME 3: DEVELOPER // DESIGNER */}
             {frame === 3 && (
-              <motion.div
-                key="stage-3"
-                initial={{ opacity: 0, filter: "blur(4px)" }}
-                animate={{ opacity: 1, filter: "blur(0px)" }}
-                exit={{ opacity: 0, filter: "blur(4px)" }}
-                transition={{ duration: 0.3 }}
-                className="flex flex-col items-center"
-              >
+              <div className="flex flex-col items-center">
                 <h1 className="text-5xl sm:text-8xl md:text-9xl font-black tracking-tighter uppercase leading-none font-[family-name:var(--font-space-grotesk)] flex items-baseline justify-center flex-wrap">
                   <span>{displayText.split("//")[0]}</span>
                   {displayText.includes("//") && (
@@ -325,7 +304,7 @@ export default function KineticIntro({
                 <span className="mt-4 font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-slate-500">
                   // 240px bounds
                 </span>
-              </motion.div>
+              </div>
             )}
           </div>
 
