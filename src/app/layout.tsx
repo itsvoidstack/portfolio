@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
-import { Sora } from "next/font/google";
-import { Inter } from "next/font/google";
-import { JetBrains_Mono } from "next/font/google";
+import { Inter, Space_Grotesk, Sora, JetBrains_Mono, Caveat } from "next/font/google";
+
 import "./globals.css";
 import CustomCursor from "@/components/layout/CustomCursor";
 import JsonLd from "@/components/seo/JsonLd";
 import { siteConfig } from "@/config/site";
+
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -30,6 +29,12 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -109,8 +114,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${sora.variable} ${inter.variable} ${jetbrainsMono.variable} scroll-smooth antialiased`}
+      className={`${spaceGrotesk.variable} ${sora.variable} ${inter.variable} ${jetbrainsMono.variable} ${caveat.variable} scroll-smooth antialiased`}
     >
+
       <head>
         <JsonLd />
       </head>
