@@ -85,7 +85,9 @@ export default function HeroSection() {
 
               {/* Huge Expressive Display Identity */}
               <motion.h1
+                layoutId="shivam-title"
                 variants={itemVariants}
+                transition={{ type: "spring", stiffness: 220, damping: 25 }}
                 className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-[var(--foreground)] leading-[0.88] uppercase mb-6"
               >
                 SHIVAM <br />
