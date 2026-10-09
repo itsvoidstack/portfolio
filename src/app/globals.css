@@ -76,6 +76,25 @@ body {
   color: transparent;
 }
 
+/* Keyframe Animations for Marquee */
+@keyframes scrollLeftToRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes scrollRightToLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
@@ -85,4 +104,5 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
 
