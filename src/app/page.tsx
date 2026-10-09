@@ -7,6 +7,7 @@ import SkillsSection from "@/components/sections/SkillsSection";
 import HobbiesSection from "@/components/sections/HobbiesSection";
 import ContactSection from "@/components/sections/ContactSection";
 import Footer from "@/components/layout/Footer";
+import QuickMessageModal from "@/components/ui/QuickMessageModal";
 
 export default function Home() {
   return (
@@ -40,6 +41,10 @@ export default function Home() {
 
       {/* FOOTER */}
       <Footer />
+
+      {/* FLOATING QUICK MESSAGE MODAL */}
+      <QuickMessageModal />
     </div>
   );
 }
+
