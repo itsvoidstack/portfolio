@@ -1,3 +1,7 @@
+"use client";
+
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import Navbar from "@/components/layout/Navbar";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
@@ -8,43 +12,71 @@ import HobbiesSection from "@/components/sections/HobbiesSection";
 import ContactSection from "@/components/sections/ContactSection";
 import Footer from "@/components/layout/Footer";
 import QuickMessageModal from "@/components/ui/QuickMessageModal";
+import KineticIntro from "@/components/ui/KineticIntro";
+import { siteConfig } from "@/config/site";
 
 export default function Home() {
+  const [introDone, setIntroDone] = useState(false);
+
   return (
     <div className="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]">
-      {/* Sticky typography-focused navbar */}
-      <Navbar />
+      {!introDone && (
+        <KineticIntro
+          name={siteConfig.name.toUpperCase()}
+          onComplete={() => setIntroDone(true)}
+        />
+      )}
 
-      {/* Main page content sections */}
-      <main className="flex-1">
-        {/* HERO */}
-        <HeroSection />
+      {/* Main Container smoothly reveals when intro completes */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.985, y: 15 }}
+        animate={{
+          opacity: introDone ? 1 : 0.95,
+          scale: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 1.0,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="flex-1 flex flex-col"
+      >
+        {/* Sticky typography-focused navbar */}
+        <Navbar />
 
-        {/* 01 — ABOUT */}
-        <AboutSection />
+        {/* Main page content sections */}
+        <main className="flex-1">
+          {/* HERO */}
+          <HeroSection />
 
-        {/* 02 — WORK */}
-        <WorkSection />
+          {/* 01 — ABOUT */}
+          <AboutSection />
 
-        {/* 03 — MY JOURNEY */}
-        <JourneySection />
+          {/* 02 — WORK */}
+          <WorkSection />
 
-        {/* 04 — SKILLS / ARSENAL */}
-        <SkillsSection />
+          {/* 03 — MY JOURNEY */}
+          <JourneySection />
 
-        {/* 05 — HOBBIES / BEYOND THE CODE */}
-        <HobbiesSection />
+          {/* 04 — SKILLS / ARSENAL */}
+          <SkillsSection />
 
-        {/* 06 — CONTACT */}
-        <ContactSection />
-      </main>
+          {/* 05 — HOBBIES / BEYOND THE CODE */}
+          <HobbiesSection />
 
-      {/* FOOTER */}
-      <Footer />
+          {/* 06 — CONTACT */}
+          <ContactSection />
+        </main>
 
-      {/* FLOATING QUICK MESSAGE MODAL */}
-      <QuickMessageModal />
+        {/* FOOTER */}
+        <Footer />
+
+        {/* FLOATING QUICK MESSAGE MODAL */}
+        <QuickMessageModal />
+      </motion.div>
     </div>
   );
 }
+
+
 
