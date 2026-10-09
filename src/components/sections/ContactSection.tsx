@@ -1,8 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Button from "@/components/ui/Button";
 import { Mail, Plus, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import QuickMessageForm from "@/components/ui/QuickMessageForm";
+
+
 
 export default function ContactSection() {
   return (
@@ -48,15 +52,16 @@ export default function ContactSection() {
             </h2>
 
             <p className="text-base sm:text-lg font-sans text-[var(--muted)] max-w-lg mb-8 leading-relaxed">
-              Have an idea, project, or just want to talk? I&apos;d love to hear from you.
+              Have an idea, project, or just want to talk? Send a direct message below.
             </p>
 
-            <div className="mb-8">
-              <Button href="mailto:shivamshah9811@gmail.com" variant="primary" showArrow={true}>
-                GET IN TOUCH ↗
-              </Button>
+            {/* Shared Quick Message Form Instance */}
+            <div className="bg-[var(--surface)] border border-[var(--border)] p-6 sm:p-8 shadow-xs max-w-xl mb-8">
+              <QuickMessageForm />
             </div>
           </motion.div>
+
+
 
           {/* Right Column: Direct Channels with Real Links */}
           <motion.div
@@ -146,3 +151,6 @@ export default function ContactSection() {
     </section>
   );
 }
+
+
+
