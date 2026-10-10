@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.title,
     images: [
       {
-        url: `${siteConfig.url}/portrait.png`,
+        url: `${siteConfig.url}/og.png`,
         width: 1200,
         height: 630,
         alt: `${siteConfig.name} — Creative Developer & AI Enthusiast`,
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     creator: siteConfig.author.handle,
-    images: [`${siteConfig.url}/portrait.png`],
+    images: [`${siteConfig.url}/og.png`],
   },
   verification: {
     google: siteConfig.googleVerification,
@@ -119,6 +119,12 @@ export default function RootLayout({
     >
 
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&display=swap"
+          rel="stylesheet"
+        />
         <JsonLd />
       </head>
       <body className="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans selection:bg-[var(--accent)] selection:text-white relative overflow-x-hidden">

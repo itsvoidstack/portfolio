@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "Shivam Shah",
   title: "Shivam Shah — Creative Developer & AI Enthusiast",
-  description: "Computer Science student interested in artificial intelligence, full-stack development, and building digital products with real purpose.",
+  description: "Computer Science student building impactful digital products with AI, Full-Stack, and UX.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.shivam-shah.com.np",
-  ogImage: "/portrait.png",
+  ogImage: "/og.png",
   author: {
     name: "Shivam Shah",
     role: "Developer & AI Enthusiast",
