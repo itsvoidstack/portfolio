@@ -83,11 +83,17 @@ export default function HeroSection() {
                 <span>— {TAGLINE_TEXT}</span>
               </motion.div>
 
-              {/* Huge Expressive Display Identity */}
+              {/* Huge Expressive Display Identity with Floating Animation */}
               <motion.h1
                 layoutId="shivam-title"
                 variants={itemVariants}
-                transition={{ type: "spring", stiffness: 220, damping: 25 }}
+                animate={shouldReduceMotion ? undefined : { y: [-4, 4, -4] }}
+                transition={{
+                  y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+                  type: "spring",
+                  stiffness: 220,
+                  damping: 25,
+                }}
                 className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-[var(--foreground)] leading-[0.88] uppercase mb-6"
               >
                 SHIVAM <br />
@@ -131,12 +137,15 @@ export default function HeroSection() {
             {/* Middle Layer: "BUILD YOUR IMAGINATION" */}
             <div className="lg:col-span-7 relative h-full flex items-end justify-between z-0">
               
-              {/* Text Layer with Scroll Parallax */}
+              {/* Text Layer with Scroll Parallax & Gentle Float */}
               <motion.div
                 style={{ y: shouldReduceMotion ? 0 : textBgY }}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                animate={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -6, 0] }}
+                transition={{
+                  opacity: { duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] },
+                  y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                }}
                 className="absolute top-12 lg:top-16 left-0 z-0 pointer-events-none select-none max-w-lg"
               >
                 {/* Grey Display Heading */}

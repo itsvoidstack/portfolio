@@ -32,22 +32,26 @@ export default function QuickMessageModal() {
 
   return (
     <>
-      {/* Floating Trigger Button */}
+      {/* Floating Trigger Button with Message Bubble Wobble & Alternating Pulse */}
       <motion.button
         id="quick-message-trigger"
         onClick={() => setIsOpen(true)}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        whileHover={{ scale: 1.05 }}
+        whileHover={{
+          scale: 1.05,
+          rotate: [0, -3, 3, -2, 0],
+          transition: { type: "spring", stiffness: 400, damping: 15 },
+        }}
         whileTap={{ scale: 0.95 }}
         aria-label="Open Quick Message Panel"
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 px-4 py-3.5 bg-[var(--surface)] border border-[var(--border)] text-[var(--foreground)] font-mono text-xs font-semibold shadow-xl hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors group cursor-pointer"
+        className="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 px-4 py-3.5 bg-[var(--surface)] border border-[var(--border)] text-[var(--foreground)] font-mono text-xs font-semibold shadow-xl hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all group cursor-pointer"
       >
         <span className="relative flex h-2.5 w-2.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75" />
-          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--accent)]" />
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75" style={{ animationDuration: "2s" }} />
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--accent)] animate-pulse" />
         </span>
-        <MessageSquare size={16} className="text-[var(--accent)] group-hover:scale-110 transition-transform" />
+        <MessageSquare size={16} className="text-[var(--accent)] group-hover:scale-110 group-hover:rotate-12 transition-transform" />
         <span className="uppercase tracking-wider">Quick Msg</span>
       </motion.button>
 

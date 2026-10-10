@@ -66,11 +66,20 @@ export default function FeaturedProject({
         viewport={{ once: true, margin: "-60px" }}
         className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
       >
-        {/* Visual / Screenshot Area with Parallax */}
+        {/* Visual / Screenshot Area with Parallax & Floating Motion */}
         <motion.div
           style={{ y: shouldReduceMotion ? 0 : imageY }}
           variants={itemVariants}
-          className={`lg:col-span-7 w-full ${
+          whileHover={
+            shouldReduceMotion
+              ? {}
+              : {
+                  y: -8,
+                  scale: 1.015,
+                  transition: { type: "spring", stiffness: 300, damping: 22 },
+                }
+          }
+          className={`lg:col-span-7 w-full cursor-pointer transition-shadow duration-300 ${
             isImageLeft ? "order-1 lg:order-1" : "order-1 lg:order-2"
           }`}
         >
