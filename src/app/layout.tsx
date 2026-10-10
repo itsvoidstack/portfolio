@@ -74,12 +74,14 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     title: siteConfig.title,
     description: siteConfig.description,
-    siteName: siteConfig.title,
+    siteName: siteConfig.name,
     images: [
       {
-        url: `${siteConfig.url}/og.png`,
+        url: "/og.png",
+        secureUrl: `${siteConfig.url.replace(/\/$/, "")}/og.png`,
         width: 1200,
         height: 630,
+        type: "image/png",
         alt: `${siteConfig.name} — Creative Developer & AI Enthusiast`,
       },
     ],
@@ -89,7 +91,7 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     creator: siteConfig.author.handle,
-    images: [`${siteConfig.url}/og.png`],
+    images: ["/og.png"],
   },
   verification: {
     google: siteConfig.googleVerification,
