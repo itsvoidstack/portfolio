@@ -11,7 +11,7 @@ interface KineticIntroProps {
 }
 
 // ==========================================
-// PROPERLY POSITIONED SVGS (BALANCED UI QUADRANTS)
+// PROPERLY POSITIONED SVGS (STATIC, NO FLY-IN)
 // ==========================================
 const ATTACHED_SVGS = [
   {
@@ -56,7 +56,7 @@ const ATTACHED_SVGS = [
   },
 ];
 
-// TECH BADGES
+// STATIC TECH BADGES (NO FLY-IN ANIMATIONS)
 const TECH_BADGES = [
   { text: "</>", color: "bg-[#84cc16] text-black font-bold" },
   { text: "AI_AGENT", color: "bg-blue-600 text-white font-mono" },
@@ -98,7 +98,7 @@ export default function KineticIntro({
     setIsExiting(true);
   };
 
-  // Pure single-sequence typewriter & backspace loop (NO double container animation)
+  // Pure single-sequence typewriter & backspace loop (NO fly-in animations)
   useEffect(() => {
     if (isExiting || isPaused) return;
 
@@ -128,7 +128,7 @@ export default function KineticIntro({
         setDisplayText(currentTarget.substring(0, displayText.length - 1));
       }, 35);
     } else if (isDeleting && displayText === "") {
-      // Advance to next phrase cleanly without container unmount
+      // Advance to next phrase cleanly
       setIsDeleting(false);
       setFrame((prev) => prev + 1);
     }
@@ -209,14 +209,11 @@ export default function KineticIntro({
             CERTAIN UNCERTAINTIES [VOL. 2] // KINETIC SEQUENCE_
           </div>
 
-          {/* 3. PROPERLY BALANCED BACKDROP SVGS */}
+          {/* 3. STATIC BACKDROP SVGS (NO SCALING/FLYING IN) */}
           <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
             {ATTACHED_SVGS.map((item) => (
-              <motion.div
+              <div
                 key={item.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 0.55, scale: 1 }}
-                transition={{ duration: 0.8 }}
                 style={{ transform: `rotate(${item.rotate}deg)` }}
                 className={`absolute ${item.position} ${item.size}`}
               >
@@ -234,12 +231,12 @@ export default function KineticIntro({
                   className="w-full h-full object-contain filter contrast-125 mix-blend-multiply opacity-55"
                   priority
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
 
-          {/* 4. SINGLE PERMANENT TYPEWRITER STAGE (PURE TYPEWRITER — NO DOUBLE CONTAINER ANIMATIONS) */}
-          <div className="relative z-10 text-center px-4 flex flex-col items-center justify-center min-h-[240px] w-full max-w-4xl">
+          {/* 4. TYPEWRITER STAGE (PROPORTIONAL TEXT, NO FLY-IN ANIMATIONS) */}
+          <div className="relative z-10 text-center px-4 flex flex-col items-center justify-center min-h-[260px] w-full max-w-4xl">
             {/* FRAME 1: HELLO! */}
             {frame === 1 && (
               <div className="flex flex-col items-center">
@@ -250,32 +247,28 @@ export default function KineticIntro({
                   )}
                   <span className="text-black font-light animate-pulse ml-2">_</span>
                 </h1>
-                <span className="mt-4 font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-slate-500">
+                <span className="mt-6 font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-slate-500">
                   // 240px bounds
                 </span>
               </div>
             )}
 
-            {/* FRAME 2: I'M SHIVAM SHAH */}
+            {/* FRAME 2: I'M SHIVAM SHAH (LARGER PROPORTIONAL "I'M") */}
             {frame === 2 && (
               <div className="flex flex-col items-center">
                 {displayText.startsWith("I'M") && (
-                  <span className="font-[family-name:var(--font-jetbrains-mono)] text-sm sm:text-xl text-slate-500 uppercase tracking-widest mb-2 font-semibold">
+                  <span className="font-[family-name:var(--font-jetbrains-mono)] text-2xl sm:text-4xl md:text-5xl font-black uppercase tracking-widest text-slate-500 mb-2 sm:mb-3">
                     I&apos;M
                   </span>
                 )}
-                <motion.h1
-                  layoutId="shivam-title"
-                  transition={{ type: "spring", stiffness: 220, damping: 25 }}
-                  className="text-6xl sm:text-8xl md:text-9xl font-black tracking-tight leading-none uppercase font-[family-name:var(--font-space-grotesk)] flex items-baseline"
-                >
+                <h1 className="text-6xl sm:text-8xl md:text-9xl font-black tracking-tight leading-none uppercase font-[family-name:var(--font-space-grotesk)] flex items-baseline">
                   <span>{displayText.replace("I'M ", "").split(" ")[0]}</span>
                   {displayText.includes("SHAH") && (
                     <>{" "}<span className="text-blue-600">SHAH</span></>
                   )}
                   <span className="text-black font-light animate-pulse ml-2">_</span>
-                </motion.h1>
-                <span className="mt-4 font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-slate-500">
+                </h1>
+                <span className="mt-6 font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-slate-500">
                   // 240px bounds
                 </span>
               </div>
@@ -293,42 +286,29 @@ export default function KineticIntro({
                   <span className="text-black font-light animate-pulse ml-2">_</span>
                 </h1>
                 {displayText === frameTargets[3] && (
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-6 font-[family-name:var(--font-jetbrains-mono)] text-xs sm:text-sm tracking-widest text-slate-700 uppercase border-y border-black/20 py-2"
-                  >
+                  <p className="mt-6 font-[family-name:var(--font-jetbrains-mono)] text-xs sm:text-sm tracking-widest text-slate-700 uppercase border-y border-black/20 py-2">
                     [STUDENT DEVELOPER & UI/UX & AI ENTHUSIAST]
-                  </motion.p>
+                  </p>
                 )}
-                <span className="mt-4 font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-slate-500">
+                <span className="mt-6 font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-slate-500">
                   // 240px bounds
                 </span>
               </div>
             )}
           </div>
 
-          {/* 5. BOTTOM TECH BADGES */}
+          {/* 5. STATIC BOTTOM TECH BADGES (NO FLY-IN SLIDE) */}
           <div className="absolute bottom-16 inset-x-0 flex justify-center items-center pointer-events-none z-10">
             {TECH_BADGES.map((badge, idx) => (
-              <motion.div
+              <div
                 key={idx}
-                initial={{ y: 150, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 240,
-                  damping: 18,
-                  delay: 0.08 * idx,
-                }}
                 style={{
-                  translateX: (idx - (TECH_BADGES.length - 1) / 2) * 11 + "vw",
-                  rotate: idx % 2 === 0 ? -4 : 6,
+                  transform: `translateX(${(idx - (TECH_BADGES.length - 1) / 2) * 11}vw) rotate(${idx % 2 === 0 ? -4 : 6}deg)`,
                 }}
                 className={`absolute px-4 py-2 rounded-lg text-xs font-[family-name:var(--font-jetbrains-mono)] shadow-md border border-black/20 ${badge.color}`}
               >
                 {badge.text}
-              </motion.div>
+              </div>
             ))}
           </div>
 
