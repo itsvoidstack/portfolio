@@ -94,7 +94,7 @@ export default function HeroSection() {
                   stiffness: 220,
                   damping: 25,
                 }}
-                className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-[var(--foreground)] leading-[0.88] uppercase mb-6"
+                className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-[var(--foreground)] leading-[0.88] uppercase mb-6 transform-gpu"
               >
                 SHIVAM <br />
                 <span className="text-[var(--accent)]">SHAH</span>
@@ -141,27 +141,34 @@ export default function HeroSection() {
               <motion.div
                 style={{ y: shouldReduceMotion ? 0 : textBgY }}
                 initial={{ opacity: 0, y: 20 }}
-                animate={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -6, 0] }}
-                transition={{
-                  opacity: { duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] },
-                  y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-                }}
-                className="absolute top-12 lg:top-16 left-0 z-0 pointer-events-none select-none max-w-lg"
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute top-12 lg:top-16 left-0 z-0 pointer-events-none select-none max-w-lg transform-gpu"
               >
-                {/* Grey Display Heading */}
-                <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl font-black text-slate-600/90 tracking-tighter uppercase leading-[0.9]">
-                  BUILD YOUR <br />
-                  IMAGINATION
-                </h2>
+                <motion.div
+                  animate={shouldReduceMotion ? undefined : { y: [0, -8, 0] }}
+                  transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="transform-gpu"
+                >
+                  {/* Grey Display Heading */}
+                  <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl font-black text-slate-600/90 tracking-tighter uppercase leading-[0.9]">
+                    BUILD YOUR <br />
+                    IMAGINATION
+                  </h2>
 
-                {/* Stacked Vertical Annotation Text */}
-                <div className="mt-8 font-mono text-[11px] font-bold text-slate-600 tracking-widest leading-snug uppercase hidden sm:block">
-                  <div>TURNING</div>
-                  <div>IDEAS</div>
-                  <div>INTO</div>
-                  <div>DIGITAL</div>
-                  <div>EXPERIENCES</div>
-                </div>
+                  {/* Stacked Vertical Annotation Text */}
+                  <div className="mt-8 font-mono text-[11px] font-bold text-slate-600 tracking-widest leading-snug uppercase hidden sm:block">
+                    <div>TURNING</div>
+                    <div>IDEAS</div>
+                    <div>INTO</div>
+                    <div>DIGITAL</div>
+                    <div>EXPERIENCES</div>
+                  </div>
+                </motion.div>
               </motion.div>
 
               {/* Upper Right Annotations */}
