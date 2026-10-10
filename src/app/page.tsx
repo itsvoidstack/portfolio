@@ -52,14 +52,14 @@ export default function Home() {
           {/* 01 — ABOUT */}
           <AboutSection />
 
-          {/* 02 — WORK */}
+          {/* 02 — SKILLS / ARSENAL */}
+          <SkillsSection />
+
+          {/* 03 — WORK */}
           <WorkSection />
 
-          {/* 03 — MY JOURNEY */}
+          {/* 04 — MY JOURNEY */}
           <JourneySection />
-
-          {/* 04 — SKILLS / ARSENAL */}
-          <SkillsSection />
 
           {/* 05 — HOBBIES / BEYOND THE CODE */}
           <HobbiesSection />

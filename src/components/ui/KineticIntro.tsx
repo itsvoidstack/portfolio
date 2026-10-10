@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { siteConfig } from "@/config/site";
 
 interface KineticIntroProps {
   name?: string;
@@ -11,144 +10,140 @@ interface KineticIntroProps {
 }
 
 // ==========================================
-// PROPERLY POSITIONED SVGS (STATIC, NO FLY-IN)
+// RESPONSIVE GRAPHICAL ASSETS
 // ==========================================
 const ATTACHED_SVGS = [
   {
     id: "svg-mask",
     src: "/svgs/25KrR01.svg",
-    size: "w-28 h-28 sm:w-36 sm:h-36",
-    position: "top-[14%] left-[6%]",
-    rotate: -8,
-    tag: "PX_01 // MASK",
+    size: "w-16 h-16 sm:w-24 sm:h-24 lg:w-32 lg:h-32",
+    position: "top-[10%] left-[3%] sm:left-[6%]",
+    rotate: -6,
+    tag: "PX_35 // MASK",
   },
   {
-    id: "svg-sketch",
+    id: "svg-snitch",
     src: "/svgs/7uUwi01.svg",
-    size: "w-32 h-32 sm:w-40 sm:h-40",
-    position: "top-[14%] right-[6%]",
-    rotate: 10,
-    tag: "PX_02 // SKETCH",
+    size: "w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36",
+    position: "top-[8%] right-[3%] sm:right-[6%]",
+    rotate: 8,
+    tag: "PX_35 // SNITCH",
   },
   {
     id: "svg-seal",
     src: "/svgs/Oea4701.svg",
-    size: "w-24 h-24 sm:w-32 sm:h-32",
-    position: "bottom-[16%] left-[6%]",
-    rotate: -5,
-    tag: "PX_03 // SEAL",
+    size: "w-16 h-16 sm:w-20 sm:h-20 lg:w-28 lg:h-28",
+    position: "bottom-[16%] left-[3%] sm:left-[6%]",
+    rotate: -4,
+    tag: "PX_35 // SEAL",
   },
   {
-    id: "svg-anchor",
+    id: "svg-plane",
     src: "/svgs/eTNCl01.svg",
-    size: "w-32 h-32 sm:w-44 sm:h-44",
-    position: "bottom-[16%] right-[6%]",
-    rotate: 6,
-    tag: "PX_04 // ANCHOR",
+    size: "w-20 h-20 sm:w-28 sm:h-28 lg:w-40 lg:h-40",
+    position: "bottom-[16%] right-[3%] sm:right-[6%]",
+    rotate: 5,
+    tag: "PX_35 // CREATIVITY",
   },
   {
-    id: "svg-trajectory",
+    id: "svg-toeto",
     src: "/svgs/m8qLF01.svg",
-    size: "w-28 h-28 sm:w-36 sm:h-36",
-    position: "top-[46%] right-[3%] hidden lg:block",
-    rotate: -12,
-    tag: "PX_05 // TRAJECTORY",
+    size: "w-16 h-16 sm:w-24 sm:h-24 lg:w-32 lg:h-32",
+    position: "top-[44%] right-[2%] xl:right-[4%] hidden md:block",
+    rotate: -10,
+    tag: "PX_35 // TOETO",
   },
 ];
 
-// STATIC TECH BADGES (NO FLY-IN ANIMATIONS)
+// TECH BADGES WITH GREEN BADGE TEXT INCLUDED
 const TECH_BADGES = [
-  { text: "</>", color: "bg-[#84cc16] text-black font-bold" },
-  { text: "AI_AGENT", color: "bg-blue-600 text-white font-mono" },
-  { text: "01001100", color: "bg-black text-[#84cc16] font-mono" },
-  { text: "{ REACT }", color: "bg-cyan-500 text-black font-semibold" },
-  { text: "$ sudo run", color: "bg-slate-900 text-green-400 font-mono" },
-  { text: "✦ CREATIVE", color: "bg-[#8B5CF6] text-white font-semibold" },
+  { text: "<CODE/>", color: "bg-[#84cc16] text-black font-mono text-xs px-3 py-1.5 rounded shadow-sm font-extrabold" },
+  { text: "AI_AGENT", color: "bg-[#3b82f6] text-white font-mono text-xs px-3 py-1.5 rounded shadow-sm font-semibold" },
+  { text: "01001100", color: "bg-black text-[#84cc16] font-mono text-xs px-3 py-1.5 rounded shadow-sm font-semibold" },
+  { text: "[ REACT ]", color: "bg-[#06b6d4] text-black font-mono text-xs px-3 py-1.5 rounded shadow-sm font-bold" },
+  { text: "$ sudo run", color: "bg-[#0f172a] text-emerald-400 font-mono text-xs px-3 py-1.5 rounded shadow-sm font-mono" },
+  { text: "CREATIVITY", color: "bg-[#8b5cf6] text-white font-mono text-xs px-3 py-1.5 rounded shadow-sm font-semibold" },
 ];
 
-export default function KineticIntro({
-  onComplete,
-}: KineticIntroProps) {
-  const [frame, setFrame] = useState(1);
+const GLITCH_GLYPHS = "X01_#$&@!*?";
+
+export default function KineticIntro({ onComplete }: KineticIntroProps) {
+  const [stage, setStage] = useState<"heading" | "subtext" | "done">("heading");
   const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [subtext, setSubtext] = useState("");
   const [isExiting, setIsExiting] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
   const onCompleteRef = useRef(onComplete);
+
+  const fullHeading = "HEY,\nI'M SHIVAM";
+  const fullSubtext = "DEVELOPER // DESIGNER";
 
   useEffect(() => {
     onCompleteRef.current = onComplete;
   }, [onComplete]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    const originalStyle = window.getComputedStyle(document.body).overflow;
     document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = originalStyle;
     };
   }, []);
-
-  // 3 Target phrases to type and erase in-place seamlessly
-  const frameTargets: Record<number, string> = {
-    1: "HELLO!",
-    2: `I'M ${siteConfig.name.toUpperCase()}`,
-    3: "DEVELOPER // DESIGNER",
-  };
 
   const triggerCompletion = () => {
     setIsExiting(true);
   };
 
-  // Pure single-sequence typewriter & backspace loop (NO fly-in animations)
+  // High-speed Stage 1: Heading Decrypt (<500ms)
   useEffect(() => {
-    if (isExiting || isPaused) return;
+    if (isExiting || stage !== "heading") return;
 
-    let timer: NodeJS.Timeout;
-    const currentTarget = frameTargets[frame];
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index <= fullHeading.length) {
+        const revealed = fullHeading.slice(0, index);
+        const remaining = fullHeading.slice(index);
+        
+        let scrambled = "";
+        if (remaining.length > 0) {
+          const firstChar = remaining[0];
+          if (firstChar === "\n" || firstChar === " ") {
+            scrambled = firstChar;
+          } else {
+            scrambled = GLITCH_GLYPHS[Math.floor(Math.random() * GLITCH_GLYPHS.length)];
+          }
+        }
 
-    if (!isDeleting && displayText !== currentTarget) {
-      // Type in character by character
-      timer = setTimeout(() => {
-        setDisplayText(currentTarget.substring(0, displayText.length + 1));
-      }, 70);
-    } else if (!isDeleting && displayText === currentTarget) {
-      // Hold complete text before erasing
-      if (frame < 3) {
-        timer = setTimeout(() => {
-          setIsDeleting(true);
-        }, 1200);
+        setDisplayText(revealed + scrambled);
+        index++;
       } else {
-        // Complete sequence on Frame 3 finish
-        timer = setTimeout(() => {
-          triggerCompletion();
-        }, 2000);
+        clearInterval(interval);
+        setDisplayText(fullHeading);
+        setTimeout(() => setStage("subtext"), 100);
       }
-    } else if (isDeleting && displayText !== "") {
-      // Backspace character by character in-place
-      timer = setTimeout(() => {
-        setDisplayText(currentTarget.substring(0, displayText.length - 1));
-      }, 35);
-    } else if (isDeleting && displayText === "") {
-      // Advance to next phrase cleanly
-      setIsDeleting(false);
-      setFrame((prev) => prev + 1);
-    }
+    }, 28);
 
-    return () => clearTimeout(timer);
-  }, [displayText, isDeleting, frame, isExiting, isPaused]);
+    return () => clearInterval(interval);
+  }, [stage, isExiting]);
 
-  // Keyboard shortcut: ESC to skip, Space to toggle Pause
+  // High-speed Stage 2: Subtext Typewriter & Fast Launch
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        triggerCompletion();
-      } else if (e.code === "Space") {
-        e.preventDefault();
-        setIsPaused((prev) => !prev);
+    if (isExiting || stage !== "subtext") return;
+
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index <= fullSubtext.length) {
+        setSubtext(fullSubtext.slice(0, index));
+        index++;
+      } else {
+        clearInterval(interval);
+        setStage("done");
+        setTimeout(() => triggerCompletion(), 350);
       }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+    }, 22);
+
+    return () => clearInterval(interval);
+  }, [stage, isExiting]);
 
   return (
     <AnimatePresence
@@ -162,180 +157,109 @@ export default function KineticIntro({
       {!isExiting && (
         <motion.div
           key="kinetic-intro-modal"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] } }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#F4F4F0] text-black font-[family-name:var(--font-inter)] overflow-hidden select-none"
+          initial={{ y: 0 }}
+          exit={{ 
+            y: "-100%", 
+            transition: { duration: 0.65, ease: [0.76, 0, 0.24, 1] } 
+          }}
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#F4F4F0] text-black font-[family-name:var(--font-inter)] overflow-hidden select-none px-4"
         >
-          {/* 1. ARCHITECTURAL BLUEPRINT GRID OVERLAY */}
-          <div className="absolute inset-0 pointer-events-none opacity-25">
-            <div className="absolute inset-0 border-[0.5px] border-black/15 grid grid-cols-8 grid-rows-8">
-              {Array.from({ length: 64 }).map((_, i) => (
+          {/* 1. BLUEPRINT GRID OVERLAY */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.15]">
+            <div className="absolute inset-0 border-[0.5px] border-black/15 grid grid-cols-6 sm:grid-cols-12 grid-rows-8">
+              {Array.from({ length: 96 }).map((_, i) => (
                 <div key={i} className="border-[0.5px] border-black/10" />
               ))}
             </div>
-            <svg
-              className="absolute inset-0 w-full h-full"
-              stroke="currentColor"
-              strokeWidth="0.75"
-              strokeDasharray="4 4"
-              fill="none"
-            >
-              <line x1="0" y1="20%" x2="100%" y2="20%" className="text-black/20" />
-              <line x1="0" y1="80%" x2="100%" y2="80%" className="text-black/20" />
-              <line x1="15%" y1="0" x2="15%" y2="100%" className="text-black/20" />
-              <line x1="85%" y1="0" x2="85%" y2="100%" className="text-black/20" />
-            </svg>
           </div>
 
           {/* 2. TOP HUD METADATA */}
-          <div className="absolute top-6 left-6 text-xs font-[family-name:var(--font-jetbrains-mono)] text-black/60 flex items-center gap-2 z-20">
+          <div className="absolute top-4 sm:top-6 left-4 sm:left-6 text-[10px] sm:text-xs font-[family-name:var(--font-jetbrains-mono)] text-black/70 flex items-center gap-1.5 sm:gap-2 z-20 tracking-wider">
             <span className="text-[#84cc16] font-bold">✦</span>
-            <span>SHIVAM_SHAH // PORTFOLIO 2026</span>
-            <span className="text-black/30">|</span>
-            <span className="text-[10px] tracking-widest text-black/40 hidden sm:inline">[SECURE_CORE_ACTIVE]</span>
-            {isPaused && (
-              <span className="bg-amber-400 text-black px-2 py-0.5 rounded text-[10px] font-bold ml-2 animate-pulse">
-                [PAUSED FOR TEST]
-              </span>
-            )}
+            <span className="font-semibold uppercase truncate max-w-[200px] sm:max-w-none">
+              SHIVAM SHAH // PORTFOLIO 2026
+            </span>
+            <span className="text-black/50 font-bold ml-1">_</span>
+            <span className="text-[10px] sm:text-[11px] tracking-widest text-black/40 hidden md:inline ml-1">
+              [SECURE CORE ACTIVE]
+            </span>
           </div>
 
-          <div className="absolute top-6 right-6 text-xs font-[family-name:var(--font-jetbrains-mono)] text-black/60 flex items-center gap-3 z-20">
-            <span>[1920x1080]</span>
-            <span className="inline-block w-2 h-2 rounded-full bg-[#84cc16] animate-ping" />
+          <div className="absolute top-4 sm:top-6 right-4 sm:right-6 text-[10px] sm:text-xs font-[family-name:var(--font-jetbrains-mono)] text-black/60 flex items-center gap-3 z-20 tracking-wider">
+            <span>[1920X1080]</span>
           </div>
 
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 rotate-90 font-[family-name:var(--font-jetbrains-mono)] text-[10px] tracking-widest text-black/30 pointer-events-none hidden xl:block z-20">
-            CERTAIN UNCERTAINTIES [VOL. 2] // KINETIC SEQUENCE_
-          </div>
-
-          {/* 3. STATIC BACKDROP SVGS (NO SCALING/FLYING IN) */}
+          {/* 3. VECTOR SVGS */}
           <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
             {ATTACHED_SVGS.map((item) => (
               <div
                 key={item.id}
                 style={{ transform: `rotate(${item.rotate}deg)` }}
-                className={`absolute ${item.position} ${item.size}`}
+                className={`absolute ${item.position} ${item.size} transition-transform duration-300 opacity-40 sm:opacity-50`}
               >
-                <div className="absolute -inset-2.5 border border-emerald-600/30 pointer-events-none rounded-sm">
-                  <span className="absolute -top-2.5 left-1 text-[8px] font-[family-name:var(--font-jetbrains-mono)] bg-[#F4F4F0] px-1 text-emerald-700 font-semibold">
+                <div className="absolute -inset-1.5 sm:-inset-2 border border-emerald-600/30 pointer-events-none rounded-sm">
+                  <span className="absolute -top-2 left-0.5 text-[7px] sm:text-[9px] font-[family-name:var(--font-jetbrains-mono)] bg-[#F4F4F0] px-0.5 sm:px-1 text-emerald-700 font-semibold tracking-wider">
                     {item.tag}
                   </span>
-                  <div className="absolute -bottom-1 -right-1 w-1.5 h-1.5 bg-emerald-600" />
+                  <div className="absolute -bottom-1 -right-1 w-1 h-1 sm:w-1.5 sm:h-1.5 bg-emerald-600" />
                 </div>
                 <Image
                   src={item.src}
                   alt="Background Vector"
-                  width={200}
-                  height={200}
-                  className="w-full h-full object-contain filter contrast-125 mix-blend-multiply opacity-55"
+                  width={160}
+                  height={160}
+                  className="w-full h-full object-contain filter contrast-125 mix-blend-multiply"
                   priority
                 />
               </div>
             ))}
           </div>
 
-          {/* 4. TYPEWRITER STAGE (PROPORTIONAL TEXT, NO FLY-IN ANIMATIONS) */}
-          <div className="relative z-10 text-center px-4 flex flex-col items-center justify-center min-h-[260px] w-full max-w-4xl">
-            {/* FRAME 1: HELLO! */}
-            {frame === 1 && (
-              <div className="flex flex-col items-center">
-                <h1 className="text-7xl sm:text-9xl md:text-[10rem] font-black tracking-tight leading-none font-[family-name:var(--font-space-grotesk)] flex items-baseline">
-                  <span>{displayText.replace("!", "")}</span>
-                  {displayText.includes("!") && (
-                    <span className="text-[#84cc16] ml-2">!</span>
+          {/* 4. MAIN CENTRAL TYPOGRAPHY ("HEY, I'M SHIVAM_") */}
+          <div className="relative z-10 text-center px-4 flex flex-col items-center justify-center max-w-4xl mx-auto my-auto">
+            <h1 className="text-4xl sm:text-7xl md:text-8xl lg:text-[7.5rem] font-black tracking-tight leading-[0.95] uppercase font-[family-name:var(--font-space-grotesk)] text-black">
+              {displayText.split("\n").map((line, lIdx) => (
+                <div key={lIdx} className="flex items-baseline justify-center">
+                  <span>{line}</span>
+                  {lIdx === 1 && (
+                    <motion.span
+                      animate={{ opacity: [1, 0.2] }}
+                      transition={{ duration: 0.4, repeat: Infinity, repeatType: "reverse" }}
+                      className="font-mono text-black font-light ml-1"
+                    >
+                      _
+                    </motion.span>
                   )}
-                  <span className="text-black font-light animate-pulse ml-2">_</span>
-                </h1>
-                <span className="mt-6 font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-slate-500">
-                  // 240px bounds
-                </span>
-              </div>
-            )}
+                </div>
+              ))}
+            </h1>
 
-            {/* FRAME 2: I'M SHIVAM SHAH (LARGER PROPORTIONAL "I'M") */}
-            {frame === 2 && (
-              <div className="flex flex-col items-center">
-                {displayText.startsWith("I'M") && (
-                  <span className="font-[family-name:var(--font-jetbrains-mono)] text-2xl sm:text-4xl md:text-5xl font-black uppercase tracking-widest text-slate-500 mb-2 sm:mb-3">
-                    I&apos;M
-                  </span>
-                )}
-                <h1 className="text-6xl sm:text-8xl md:text-9xl font-black tracking-tight leading-none uppercase font-[family-name:var(--font-space-grotesk)] flex items-baseline">
-                  <span>{displayText.replace("I'M ", "").split(" ")[0]}</span>
-                  {displayText.includes("SHAH") && (
-                    <>{" "}<span className="text-blue-600">SHAH</span></>
-                  )}
-                  <span className="text-black font-light animate-pulse ml-2">_</span>
-                </h1>
-                <span className="mt-6 font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-slate-500">
-                  // 240px bounds
-                </span>
+            {/* SUBTEXT DISPLAY */}
+            <div className="mt-4 sm:mt-8 flex flex-col items-center min-h-[36px] sm:min-h-[44px]">
+              <div className="relative border-y border-black/20 px-4 sm:px-8 py-1.5 sm:py-2 min-w-[200px] sm:min-w-[280px]">
+                <p className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] sm:text-base md:text-lg font-bold tracking-[0.18em] sm:tracking-[0.25em] text-slate-700 uppercase">
+                  {subtext || (stage === "heading" ? "// DECRYPTING..." : "")}
+                </p>
               </div>
-            )}
-
-            {/* FRAME 3: DEVELOPER // DESIGNER */}
-            {frame === 3 && (
-              <div className="flex flex-col items-center">
-                <h1 className="text-5xl sm:text-8xl md:text-9xl font-black tracking-tighter uppercase leading-none font-[family-name:var(--font-space-grotesk)] flex items-baseline justify-center flex-wrap">
-                  <span>{displayText.split("//")[0]}</span>
-                  {displayText.includes("//") && (
-                    <span className="text-[#84cc16]"> // </span>
-                  )}
-                  <span>{displayText.split("//")[1]}</span>
-                  <span className="text-black font-light animate-pulse ml-2">_</span>
-                </h1>
-                {displayText === frameTargets[3] && (
-                  <p className="mt-6 font-[family-name:var(--font-jetbrains-mono)] text-xs sm:text-sm tracking-widest text-slate-700 uppercase border-y border-black/20 py-2">
-                    [STUDENT DEVELOPER & UI/UX & AI ENTHUSIAST]
-                  </p>
-                )}
-                <span className="mt-6 font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-slate-500">
-                  // 240px bounds
-                </span>
-              </div>
-            )}
+            </div>
           </div>
 
-          {/* 5. STATIC BOTTOM TECH BADGES (NO FLY-IN SLIDE) */}
-          <div className="absolute bottom-16 inset-x-0 flex justify-center items-center pointer-events-none z-10">
-            {TECH_BADGES.map((badge, idx) => (
-              <div
-                key={idx}
-                style={{
-                  transform: `translateX(${(idx - (TECH_BADGES.length - 1) / 2) * 11}vw) rotate(${idx % 2 === 0 ? -4 : 6}deg)`,
-                }}
-                className={`absolute px-4 py-2 rounded-lg text-xs font-[family-name:var(--font-jetbrains-mono)] shadow-md border border-black/20 ${badge.color}`}
-              >
-                {badge.text}
-              </div>
-            ))}
+          {/* 5. TECH BADGES */}
+          <div className="absolute bottom-8 sm:bottom-12 inset-x-0 flex justify-center items-center pointer-events-none z-10">
+            <div className="flex items-center gap-2 sm:gap-4 flex-wrap justify-center px-4">
+              {TECH_BADGES.map((badge, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    transform: `rotate(${idx % 2 === 0 ? -3 : 4}deg)`,
+                  }}
+                  className={`pointer-events-auto cursor-default transition-transform hover:scale-105 ${badge.color}`}
+                >
+                  {badge.text}
+                </div>
+              ))}
+            </div>
           </div>
-
-          {/* 6. FOOTER CONTROLS */}
-          <footer className="absolute bottom-6 inset-x-6 z-30 flex justify-between items-center pointer-events-none font-[family-name:var(--font-jetbrains-mono)]">
-            <div className="text-xs text-black/60">
-              FRAME: 0{frame} / 03 {isPaused ? "(PAUSED)" : ""}
-            </div>
-            <div className="pointer-events-auto flex items-center gap-3">
-              <button
-                onClick={() => setIsPaused((prev) => !prev)}
-                className={`text-xs uppercase tracking-widest px-4 py-2 rounded-full border transition-all cursor-pointer ${
-                  isPaused
-                    ? "bg-amber-400 text-black border-amber-500 font-bold shadow-md"
-                    : "bg-black/5 hover:bg-black hover:text-white border-black/20"
-                }`}
-              >
-                {isPaused ? "RESUME [SPACE]" : "PAUSE [SPACE]"}
-              </button>
-              <button
-                onClick={() => triggerCompletion()}
-                className="text-xs uppercase tracking-widest bg-black/5 hover:bg-black hover:text-white px-4 py-2 rounded-full border border-black/20 transition-all active:scale-95 cursor-pointer"
-              >
-                SKIP INTRO [ESC]
-              </button>
-            </div>
-          </footer>
         </motion.div>
       )}
     </AnimatePresence>

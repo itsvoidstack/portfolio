@@ -76,7 +76,7 @@ export default function SkillsSection() {
     <section id="skills" className="py-24 px-4 sm:px-6 lg:px-12 border-b border-[var(--border)] bg-[var(--background)] relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
-          label="SKILLS / 03"
+          label="SKILLS / 02"
           heading="MY ARSENAL"
           supporting="An interactive showcase of tools, frameworks, and technologies I use to build scalable, production-ready applications."
         />

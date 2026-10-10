@@ -24,7 +24,7 @@ export default function WorkSection() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[var(--border)]">
             <div>
               <span className="font-mono text-xs text-[var(--accent)] tracking-widest uppercase block mb-2 font-semibold">
-                WORK / 02
+                WORK / 03
               </span>
               <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-[var(--foreground)] uppercase tracking-tight">
                 SELECTED WORK

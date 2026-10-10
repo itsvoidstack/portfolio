@@ -16,7 +16,7 @@ export default function JourneySection() {
             <div>
               <span className="font-mono text-xs text-[var(--accent)] tracking-widest uppercase block mb-2 font-semibold flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                MY JOURNEY / 03
+                MY JOURNEY / 04
               </span>
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-[var(--foreground)] uppercase tracking-tight">
                 THINGS I&apos;VE BUILT, COMPETED IN, AND LEARNED FROM<span className="text-[var(--accent)]">.</span>
